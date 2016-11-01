@@ -1,1 +1,161 @@
+@import "//brick.a.ssl.fastly.net/Roboto:200,400,700,200i,400i";
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+body {
+  background-image: url("http://www.planwallpaper.com/static/images/kartandtinki1_photo-wallpapers_02.jpg");
+  overflow: hidden;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-style: normal;
+}
+.icon {
+  width: 0.5in;
+  height: 0.5in;
+  background-size: contain;
+}
+.icon.reload {
+  background-image: url("circle.svg");
+}
+.icon.hide {
+  background-image: url("dot.svg");
+}
+.icon.max {
+  background-image: url("square.svg");
+}
+.maximized .icon.max {
+  background-image: url("squares.svg");
+}
+.icon.close {
+  background-image: url("x.svg");
+}
+.icon.home {
+  background-image: url("circle.svg");
+}
+.icon.menu {
+  background-image: url("ellipsis.svg");
+}
+.icon.back {
+  background-image: url("leftangle.svg");
+}
 
+.side-tray {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  transform: translateX(-96%);
+  transition: transform 0.2s ease-in;
+  background-color: rgba(196, 196, 196, 0.6);
+}
+.side-tray:hover {
+  transform: translateX(0);
+}
+.tray-listing {
+  position: relative;
+}
+.tray-listing:hover {
+  background-color: #DDD;
+}
+.tray-listing .name {
+  position: absolute;
+  top: 50%;
+  left: 26px;
+  transform: translateY(-50%);
+  color: #FFF;
+}
+.tray-listing .icon {
+  display: inline-block;
+  background-color: #DDD;
+  margin: 3px;
+}
+
+.win {
+  background-color: #CCC;
+  resize: both;
+  overflow: auto;
+  position: absolute;
+  width: 209px;
+  height: 209px;
+  border: 1px solid #F00010;
+}
+.win.maximized {
+  top: 0;
+  left: 0;
+  resize: none;
+  width: 100%;
+  height: 100%;
+}
+.win.hidden {
+  display: none;
+}
+.wintop {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  background-color: #CCC;
+  width: calc(100% - 6px);
+  height: 32px;
+}
+.wintop .left {
+  position: absolute;
+  left: 0;
+}
+.wintop .right {
+  position: absolute;
+  right: 0;
+}
+.wintop .icon {
+  width: 32px;
+  height: 32px;
+  background-color: #DDD;
+  float: left;
+}
+.wintop .icon:hover {
+  background-color: #EEE;
+}
+.win .content {
+  position: absolute;
+  top: 38px;
+  left: 3px;
+  width: calc(100% - 6px);
+  height: calc(100% - 49px);
+}
+
+.bottom-bg {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  background-image: url("http://www.planwallpaper.com/static/images/kartandtinki1_photo-wallpapers_02.jpg");
+  background-position: right bottom;
+  -webkit-filter: blur(5px);
+  border-top: 1px solid #A03;
+}
+.bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(240, 0, 16, 0.5);
+}
+.bottom .icon {
+  width: 48px;
+  height: 48px;
+  float: left;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.bottom .icon:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.bottom .icon.right {
+  float: right;
+}
+.bottom .icon.home:hover {
+  background-color: rgba(255, 0, 16, 0.3);
+}
