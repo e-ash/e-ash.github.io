@@ -1,4 +1,3 @@
-
 <title>shake</title>
 <h1 data-shake="0 0 0" id="elem"></h1>
 <style>
@@ -39,6 +38,6 @@ const shake = parent => {
   setInterval(noise);
 };
 elem.innerHTML = location.search.substr(1).split(";")[0] || "shake";
-document.body.style.background = location.search.substr(1).split(";")[1] || "#FFF";
+document.body.style.background = `#${location.search.substr(1).split(";")[1] || `FFF`}`;
 shake(elem);
 </script>
