@@ -1,5 +1,5 @@
 <title>shake</title>
-<h1 data-shake="0 0 0" id="elem"></h1>
+<h1 id="elem"></h1>
 <style>
 @import "//brick.a.ssl.fastly.net/Linux+Libertine:400";
 canvas {
@@ -32,12 +32,13 @@ const shake = parent => {
     let len = buffer32.length;
     let i = -1;
     while (i++ < len)
-      if (buffer32[i]) buffer32[i] = 255 * Math.random() << 24 | parent.dataset.shake.split(" ").map(s => parseInt(s, 16)).reduceRight((p, h) => p << 8 | h, 0);
+      if (buffer32[i]) buffer32[i] = 255 * Math.random() << 24 | parent.dataset.shake.split(",").map(s => parseInt(s, 16)).reduceRight((p, h) => p << 8 | h, 0);
     ctx.putImageData(idata, 0, 0);
   }
   setInterval(noise);
 };
 elem.innerHTML = location.search.substr(1).split(";")[0] || "shake";
+elem.dataset.shake = location.search.substr(1).split(";")[2] || "0,0,0";
 document.body.style.background = `#${location.search.substr(1).split(";")[1] || `FFF`}`;
 shake(elem);
 </script>
