@@ -37,8 +37,8 @@ const shake = parent => {
   }
   setInterval(noise);
 };
-elem.innerHTML = location.search.substr(1).split(";")[0] || "shake";
-elem.dataset.shake = location.search.substr(1).split(";")[2] || "0,0,0";
-document.body.style.background = `#${location.search.substr(1).split(";")[1] || `FFF`}`;
+elem.innerHTML = decodeURI(location.search).substr(1).split(";")[0] || "shake";
+elem.dataset.shake = decodeURI(location.search).substr(1).split(";")[2] || "0,0,0";
+document.body.style.background = `#${decodeURI(location.search).substr(1).split(";")[1] || `FFF`}`;
 shake(elem);
 </script>
