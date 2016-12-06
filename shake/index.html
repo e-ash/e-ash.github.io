@@ -1,0 +1,44 @@
+
+<title>shake</title>
+<h1 data-shake="0 0 0" id="elem"></h1>
+<style>
+@import "//brick.a.ssl.fastly.net/Linux+Libertine:400";
+canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Linux Libertine";
+}
+</style>
+<script>
+const shake = parent => {
+  let message = parent.innerHTML.split("").map(c => c > 32 && c < 128 ? String.fromCharCode(c.charCodeAt(0) + 65248) : c).join("\u3000");
+  
+  let elem = document.createElement("canvas");
+  parent.innerHTML = "";
+  parent.appendChild(elem);
+  
+  let data;
+  let ctx = elem.getContext("2d");
+  ctx.font = "50px 'Linux Libertine'";
+  let w = elem.width = ctx.measureText(message).width + 10;
+  let h = elem.height = 50 * 1.35;
+  function noise() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.font = `50px "Linux Libertine"`;
+    ctx.fillText(message, 5 + (Math.random() - 0.5) * 4, h / 1.3 + (Math.random() - 0.5) * 1.5);
+    let idata = ctx.getImageData(0, 0, w, h);
+    let buffer32 = new Uint32Array(idata.data.buffer);
+    let len = buffer32.length;
+    let i = -1;
+    while (i++ < len)
+      if (buffer32[i]) buffer32[i] = 255 * Math.random() << 24 | parent.dataset.shake.split(" ").map(s => parseInt(s, 16)).reduceRight((p, h) => p << 8 | h, 0);
+    ctx.putImageData(idata, 0, 0);
+  }
+  setInterval(noise);
+};
+elem.innerHTML = location.search.substr(1).split(";")[0] || "shake";
+document.body.style.background = location.search.substr(1).split(";")[1] || "#FFF";
+shake(elem);
+</script>
