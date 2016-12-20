@@ -2,8 +2,11 @@
   window.onerror = (e, i, l) => alert(`${e}@${l}^${i}`);
   window.onload = () => {
     open(`data:text/html;base64,${btoa(`<script>
+  const url = URL.createObjectURL(new Blob([\`<script>
   const url = URL.createObjectURL(new Blob([document.documentElement.innerHTML], {type: "text/html"}));
   open(url);
+  open(url);
+<\/script>\`], {type: "text/html"}));
   open(url);
 <\/script>`)}`);
     close();
