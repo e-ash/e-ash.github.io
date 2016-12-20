@@ -1,11 +1,12 @@
 <script>
   window.onerror = (e, i, l) => alert(`${e}@${l}^${i}`);
   window.onload = () => {
-    const digit = () => Math.round(Math.random() * 16).toString(16);
-    document.body.style.background = "#" + digit() + digit() + digit();
-    const blob = new Blob([document.documentElement.innerHTML], {type: "text/html"});
-    const url = URL.createObjectURL(blob);
-    open(url);
-    open(url);
+    open(`data:text/html;base64,${btoa(`<script>
+  const url = URL.createObjectURL(new Blob([document.documentElement.innerHTML], {type: "text/html"}));
+  open(url);
+  open(url);
+<\/script>`)}`);
+    close();
   };
 </script>
+lol
