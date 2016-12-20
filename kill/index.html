@@ -1,1 +1,8 @@
-<script>document.body.style.background="#"+(Math.random()*16|0).toString(16)+(Math.random()*16|0).toString(16)+(Math.random()*16|0).toString(16);a=URL.createObjectURL(new Blob([document.documentElement.innerHTML],{type:"text/html"}));open(a);open(a)</script>
+<script>
+  const digit = () => Math.round(Math.random() * 16).toString(16);
+  document.body.style.background = "#" + digit() + digit() + digit();
+  const blob = new Blob([document.documentElement.innerHTML], {type: "text/html"});
+  const url = URL.createObjectURL(blob);
+  open(url);
+  open(url);
+</script>
