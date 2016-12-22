@@ -67,7 +67,7 @@ input.onkeydown = e => setTimeout(() => {
   prev = rSelLen;
 });
 const print = msg => {
-  log.innerHTML += msg.replace(/\n/g, "<br />");
+  log.innerHTML += msg.replace(/ /g, "\u00A0").replace(/\n/g, "<br />");
 };
 const clear = () => {
   log.innerHTML = "";
