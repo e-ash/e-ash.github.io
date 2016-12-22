@@ -96,6 +96,6 @@ const update = () => {
   prev = rSelLen;
 };
 
-print("atkins shell 2\n\nprotip: atkins shell will not harm you\n\n");
+print("atkins shell 2\n\nprotip: atkins shell will not harm you\ntype help for help\n\n");
 
 input.focus();
