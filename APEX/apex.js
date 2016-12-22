@@ -3,7 +3,7 @@ let gameStarted = false;
 let ps1 = "@ ~ $ ";
 const setPs1 = header => {
   ps1 = header;
-  cline.innerHTML = ps1;
+  cline.firstChild.nodeValue = ps1;
 };
 
 const input = document.querySelector(".i");
@@ -28,7 +28,7 @@ const processCommand = command => {
     } else if (command == "run portal.sh") {
       gameStarted = true;
       setPs1("> ");
-      print("hello.");
+      print("hello.\n");
     }
   }
 };
