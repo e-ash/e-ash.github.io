@@ -1,0 +1,104 @@
+<style>
+table, tr, td {
+  border: 1px solid #000;
+}
+th {
+  border: 1px double #000;
+}
+</style>
+<div id="game"></div>
+<script>
+const stats = new Proxy({}, {
+  set(stats, name, value) {
+    if (!(name in stats)) {
+      const header = document.createElement("th");
+      header.appendChild(document.createTextNode(name));
+      headers.appendChild(header);
+      const field = document.createElement("td");
+      fields.appendChild(field);
+      stats[name] = {field};
+    }
+    stats[name].value = value;
+    const field = stats[name].field;
+    while (field.firstChild) {
+      field.removeChild(field.firstChild);
+    }
+    field.appendChild(document.createTextNode(value.toString()));
+  },
+  get(stats, name) {
+    if (name in stats) {
+      const field = stats[name].field;
+      const value = new Object(stats[name].value);
+      value.update = () => {
+        while (field.firstChild) {
+          field.removeChild(field.firstChild);
+        }
+        field.appendChild(document.createTextNode(value.toString()));
+      };
+      return value;
+    } else {
+      throw new Error(`${name} is not a stat.`);
+    }
+  }
+});
+
+const root = document.getElementById("game");
+const statsDisplay = document.createElement("table");
+const headers = document.createElement("tr");
+statsDisplay.appendChild(headers);
+const fields = document.createElement("tr");
+statsDisplay.appendChild(fields);
+root.appendChild(statsDisplay);
+
+const cappedStat = (maxFunc, onOverflow = overflow => maxFunc()) => {
+  let value = maxFunc();
+  return {
+    get value() {
+      return value;
+    },
+    set value(candidate) {
+      if (candidate > this.maxValue) {
+        value = onOverflow(candidate % this.maxValue);
+        this.update();
+      } else value = candidate;
+      this.update();
+      return value;
+    },
+    get maxValue() {
+      return maxFunc.call(this);
+    },
+    toString() {
+      return `${this.value}/${this.maxValue}`
+    }
+  };
+};
+stats.level = 1;
+stats.baseHealth = 100;
+stats.baseMana = 20;
+stats.baseExp = 100;
+stats.health = cappedStat(function() {
+  return stats.baseHealth + (stats.level - 1) * 20
+});
+stats.mana = cappedStat(function() {
+  return stats.baseMana + (stats.level - 1) * 5
+});
+stats.exp = cappedStat(function() {
+  return stats.baseExp * stats.level;
+}, function(overflow, setValue) {
+  stats.level++;
+  return overflow;
+});
+stats.exp.value = 0;
+setTimeout(() => {
+  stats.health.value = 79;
+  setTimeout(() => {
+    stats.health.value += 50;
+    setTimeout(() => {
+      stats.exp.value += 78;
+      setTimeout(() => {
+        stats.exp.value += 22;
+      }, 1000);
+    }, 1000);
+  }, 1000);
+}, 1000);
+</script>
