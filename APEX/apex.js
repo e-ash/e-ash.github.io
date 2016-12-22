@@ -4,6 +4,7 @@ let ps1 = "@ ~ $ ";
 const setPs1 = header => {
   ps1 = header;
   cline.firstChild.nodeValue = ps1;
+  update();
 };
 
 const input = document.querySelector(".i");
@@ -71,6 +72,28 @@ const print = msg => {
 };
 const clear = () => {
   log.innerHTML = "";
+};
+const update = () => {
+  const value = () => (input.value + " ").replace(/ /g, "\u00A0");
+  const selStart = input.selectionStart;
+  const selEnd = input.selectionEnd > input.selectionStart ? input.selectionEnd - 1 : input.selectionEnd;
+  const selLen = selEnd - selStart;
+  const rSelLen = input.selectionEnd - input.selectionStart;
+  const classes = ["inv"];
+  if (e.keyCode == 37 && rSelLen > prev || e.keyCode == 39 && rSelLen < prev || prevBak == true && rSelLen == prev) {
+    classes.push("rev");
+    prevBak = true;
+  } else {
+    prevBak = false;
+  }
+  
+  if (input.selectionEnd - input.selectionStart) {
+    classes.push("hl");
+  }
+  
+  cline.innerHTML = `${ps}${value().substr(0, selStart)}<span class="${classes.join(" ")}">${value().substr(selStart, selLen + 1)}</span>${value().substr(selEnd + 1)}`;
+  
+  prev = rSelLen;
 };
 
 print("atkins shell 2\n\nprotip: atkins shell will not harm you\n\n");
